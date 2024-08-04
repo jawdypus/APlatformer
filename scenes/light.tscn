@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://bckaxudegosf"]
+
+[ext_resource type="Texture2D" uid="uid://bkm2y84l35wsc" path="res://assets/light.png" id="1_l11ed"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_l11ed")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(0, 7)
+scale = Vector2(1, 1.875)
+texture = ExtResource("1_l11ed")

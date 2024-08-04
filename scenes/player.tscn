@@ -1,6 +1,55 @@
-[gd_scene load_steps=8 format=3 uid="uid://46xejupfnsrn"]
+[gd_scene load_steps=15 format=3 uid="uid://46xejupfnsrn"]
 
 [ext_resource type="Texture2D" uid="uid://3012hkt4gcfq" path="res://assets/Nobody.png" id="1_6ud80"]
+[ext_resource type="Script" path="res://scripts/player/player.gd" id="1_n328v"]
+[ext_resource type="PackedScene" uid="uid://qm8i68njg5n3" path="res://scenes/components/gravity_component.tscn" id="4_54mne"]
+[ext_resource type="PackedScene" uid="uid://c4gh0ugcf4gjm" path="res://scenes/components/input_component.tscn" id="5_lcd42"]
+[ext_resource type="PackedScene" uid="uid://bh1otcrighrxq" path="res://scenes/components/movement_component.tscn" id="6_8h35e"]
+[ext_resource type="PackedScene" uid="uid://b36doafepyxbn" path="res://scenes/components/animation_component.tscn" id="7_gpfap"]
+[ext_resource type="PackedScene" uid="uid://byma60c28tmlq" path="res://scenes/components/advanced_jump_component.tscn" id="7_ny4br"]
+
+[sub_resource type="Animation" id="Animation_ey2a2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_u5bcf"]
+resource_name = "dash"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.174533, 0.0]
+}
 
 [sub_resource type="Animation" id="Animation_vtj0d"]
 resource_name = "idle"
@@ -17,21 +66,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [3, 4]
-}
-
-[sub_resource type="Animation" id="Animation_ey2a2"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [3]
 }
 
 [sub_resource type="Animation" id="Animation_jnpt7"]
@@ -69,18 +103,26 @@ tracks/0/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bd0o4"]
 _data = {
 "RESET": SubResource("Animation_ey2a2"),
+"dash": SubResource("Animation_u5bcf"),
 "idle": SubResource("Animation_vtj0d"),
 "run": SubResource("Animation_jnpt7"),
 "turn": SubResource("Animation_6n3ap")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ba865"]
-size = Vector2(11, 16)
+size = Vector2(10.25, 16)
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("gravity_component", "input_component", "movement_component", "animation_component", "jump_component")]
 texture_filter = 1
+script = ExtResource("1_n328v")
+gravity_component = NodePath("GravityComponent")
+input_component = NodePath("InputComponent")
+movement_component = NodePath("MovementComponent")
+animation_component = NodePath("AnimationComponent")
+jump_component = NodePath("AdvancedJumpComponent")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 10
 texture = ExtResource("1_6ud80")
 hframes = 10
 frame = 3
@@ -93,5 +135,17 @@ libraries = {
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.5, 0)
+position = Vector2(0.125, 0)
 shape = SubResource("RectangleShape2D_ba865")
+
+[node name="GravityComponent" parent="." instance=ExtResource("4_54mne")]
+
+[node name="InputComponent" parent="." instance=ExtResource("5_lcd42")]
+
+[node name="MovementComponent" parent="." instance=ExtResource("6_8h35e")]
+
+[node name="AnimationComponent" parent="." node_paths=PackedStringArray("sprite", "animPlayer") instance=ExtResource("7_gpfap")]
+sprite = NodePath("../Sprite2D")
+animPlayer = NodePath("../AnimationPlayer")
+
+[node name="AdvancedJumpComponent" parent="." instance=ExtResource("7_ny4br")]

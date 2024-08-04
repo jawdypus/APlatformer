@@ -1,0 +1,55 @@
+[gd_scene load_steps=6 format=3 uid="uid://dnsn0bks600n1"]
+
+[ext_resource type="Script" path="res://scripts/camera.gd" id="1_3vbag"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yk4nc"]
+size = Vector2(480, 5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hpevg"]
+size = Vector2(480, 5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fjmtd"]
+size = Vector2(5, 270)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0wfsa"]
+size = Vector2(5, 270)
+
+[node name="Camera" type="Camera2D" node_paths=PackedStringArray("collisionShapeTop", "collisionShapeBottom", "collisionShapeLeft", "collisionShapeRight")]
+anchor_mode = 0
+script = ExtResource("1_3vbag")
+collisionShapeTop = NodePath("Top/CollisionShapeTop")
+collisionShapeBottom = NodePath("Bottom/CollisionShapeBottom")
+collisionShapeLeft = NodePath("Left/CollisionShapeLeft")
+collisionShapeRight = NodePath("Right/CollisionShapeRight")
+
+[node name="Top" type="Area2D" parent="."]
+
+[node name="CollisionShapeTop" type="CollisionShape2D" parent="Top"]
+position = Vector2(240, 0)
+shape = SubResource("RectangleShape2D_yk4nc")
+
+[node name="Bottom" type="Area2D" parent="."]
+position = Vector2(0, 270)
+
+[node name="CollisionShapeBottom" type="CollisionShape2D" parent="Bottom"]
+position = Vector2(240, 0)
+shape = SubResource("RectangleShape2D_hpevg")
+
+[node name="Left" type="Area2D" parent="."]
+position = Vector2(0, 270)
+
+[node name="CollisionShapeLeft" type="CollisionShape2D" parent="Left"]
+position = Vector2(-1, -134.5)
+shape = SubResource("RectangleShape2D_fjmtd")
+
+[node name="Right" type="Area2D" parent="."]
+position = Vector2(0, 270)
+
+[node name="CollisionShapeRight" type="CollisionShape2D" parent="Right"]
+position = Vector2(481, -136)
+shape = SubResource("RectangleShape2D_0wfsa")
+
+[connection signal="body_entered" from="Top" to="." method="_on_top_body_entered_top"]
+[connection signal="body_entered" from="Bottom" to="." method="_on_bottom_body_entered_bottom"]
+[connection signal="body_entered" from="Left" to="." method="_on_left_body_entered_left"]
+[connection signal="body_entered" from="Right" to="." method="_on_right_body_entered_right"]
