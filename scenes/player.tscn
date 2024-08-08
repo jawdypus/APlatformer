@@ -169,4 +169,3 @@ animPlayer = NodePath("../AnimationPlayer")
 [node name="JumpComponent" parent="." instance=ExtResource("7_ogrwb")]
 
 [node name="DashComponent" parent="." instance=ExtResource("8_v70lh")]
-dash_distance = null
