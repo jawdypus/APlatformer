@@ -7,6 +7,7 @@ extends Node
 
 @export_subgroup("Settings")
 @export var jump_velocity: float = -300.0
+@export var wall_jump_pushback: float = 50.0
 
 var is_going_up: bool = false
 var is_jumping: bool = false
@@ -21,13 +22,26 @@ func has_just_stepped_off_ledge(body: CharacterBody2D) -> bool:
 func is_allowed_to_jump(body: CharacterBody2D, want_to_jump: bool) -> bool:
 	return want_to_jump and (body.is_on_floor() or not coyote_timer.is_stopped())
 
+func get_which_wall_collided(body: CharacterBody2D) -> float:
+	for i in range(body.get_slide_collision_count()):
+		var collision = body.get_slide_collision(i)
+		if collision.get_normal().x > 0:
+			return -1
+		elif collision.get_normal().x < 0:
+			return 1
+	return 0
 
-func handle_jump(body: CharacterBody2D, want_to_jump: bool, jump_released: bool) -> void:
+func is_wall_jumping(body: CharacterBody2D, want_to_jump: bool) -> bool:
+	return want_to_jump and (body.is_on_wall())
+
+func handle_jump(body: CharacterBody2D, want_to_jump: bool, jump_released: bool, direction: float) -> void:
 	if has_just_landed(body):
 		is_jumping = false
 
 	if is_allowed_to_jump(body, want_to_jump):
 		jump(body)
+	elif is_wall_jumping(body, want_to_jump):
+		wall_jump(body, direction)
 
 	handle_coyote_time(body)
 	handle_jump_buffer(body, want_to_jump)
@@ -59,3 +73,9 @@ func jump(body: CharacterBody2D):
 	jump_buffer_timer.stop()
 	is_jumping = true
 	coyote_timer.stop()
+
+func wall_jump(body: CharacterBody2D, direction: float):
+	body.velocity.y = jump_velocity
+	body.velocity.x = -wall_jump_pushback * direction
+	jump_buffer_timer.stop()
+	is_jumping = true

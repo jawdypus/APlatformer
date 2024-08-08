@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://c4gh0ugcf4gjm" path="res://scenes/components/input_component.tscn" id="5_lcd42"]
 [ext_resource type="PackedScene" uid="uid://bh1otcrighrxq" path="res://scenes/components/movement_component.tscn" id="6_8h35e"]
 [ext_resource type="PackedScene" uid="uid://b36doafepyxbn" path="res://scenes/components/animation_component.tscn" id="7_gpfap"]
-[ext_resource type="PackedScene" uid="uid://byma60c28tmlq" path="res://scenes/components/advanced_jump_component.tscn" id="7_ny4br"]
+[ext_resource type="PackedScene" uid="uid://blmnsvml2uih" path="res://scenes/components/jump_component.tscn" id="7_ogrwb"]
 
 [sub_resource type="Animation" id="Animation_ey2a2"]
 length = 0.001
@@ -119,7 +119,7 @@ gravity_component = NodePath("GravityComponent")
 input_component = NodePath("InputComponent")
 movement_component = NodePath("MovementComponent")
 animation_component = NodePath("AnimationComponent")
-jump_component = NodePath("AdvancedJumpComponent")
+jump_component = NodePath("JumpComponent")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 10
@@ -143,9 +143,16 @@ shape = SubResource("RectangleShape2D_ba865")
 [node name="InputComponent" parent="." instance=ExtResource("5_lcd42")]
 
 [node name="MovementComponent" parent="." instance=ExtResource("6_8h35e")]
+speed = 100.0
+ground_accel_speed = 6.0
+ground_deccel_speed = 8.0
+air_accel_speed = 10.0
+air_deccel_speed = 3.0
+wall_slide_speed = 20.0
+wall_slide_falling_speed = 300.0
 
 [node name="AnimationComponent" parent="." node_paths=PackedStringArray("sprite", "animPlayer") instance=ExtResource("7_gpfap")]
 sprite = NodePath("../Sprite2D")
 animPlayer = NodePath("../AnimationPlayer")
 
-[node name="AdvancedJumpComponent" parent="." instance=ExtResource("7_ny4br")]
+[node name="JumpComponent" parent="." instance=ExtResource("7_ogrwb")]

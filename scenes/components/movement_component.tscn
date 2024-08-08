@@ -2,5 +2,14 @@
 
 [ext_resource type="Script" path="res://scripts/components/movement_component.gd" id="1_wobnc"]
 
-[node name="MovementComponent" type="Node"]
+[node name="MovementComponent" type="Node" node_paths=PackedStringArray("coyote_timer")]
 script = ExtResource("1_wobnc")
+coyote_timer = NodePath("CoyoteTimer")
+
+[node name="WallHoldTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="CoyoteTimer" type="Timer" parent="."]
+wait_time = 0.08
+one_shot = true
