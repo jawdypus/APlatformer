@@ -16,7 +16,6 @@ func is_allowed_to_dash(want_to_dash: bool) -> bool:
 
 func set_dash_direction(body: CharacterBody2D) -> void:
 	dash_direction = body.velocity.normalized()
-	print(dash_direction)
 
 func handle_dash(body: CharacterBody2D, want_to_dash: bool) -> void:
 	set_dash_direction(body)
