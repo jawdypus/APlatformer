@@ -11,10 +11,12 @@ func handle_horizontal_flip(move_direction: float) -> void:
 	
 	sprite.flip_h = false if move_direction > 0 else true
 
-func handle_move_animation(move_direction: float) -> void:
+func handle_move_animation(body: CharacterBody2D, move_direction: float) -> void:
 	handle_horizontal_flip(move_direction)
 	
-	if move_direction != 0:
+	if body.velocity.x != 0:
 		animPlayer.play("run")
+	if body.velocity.y != 0:
+		animPlayer.play("jump")
 	else:
 		animPlayer.play("idle")
