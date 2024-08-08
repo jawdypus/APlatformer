@@ -30,15 +30,15 @@ func handle_horizontal_movement(body: CharacterBody2D, direction: float) -> void
 
 var last_frame_on_floor: bool = false
 
-func is_allowed_to_hold_on_wall(body: CharacterBody2D) -> bool:
-	return body.is_on_wall_only() and coyote_timer.is_stopped()
+func is_allowed_to_hold_on_wall(body: CharacterBody2D, direction: float) -> bool:
+	return body.is_on_wall_only() and coyote_timer.is_stopped() and direction != 0
 
 func handle_coyote_time(body: CharacterBody2D):
 	if last_frame_on_floor:
 		coyote_timer.start()
 
 func handle_wall_slide(body: CharacterBody2D, direction: float) -> void:
-	if is_allowed_to_hold_on_wall(body):
+	if is_allowed_to_hold_on_wall(body, direction):
 		body.velocity.y = wall_slide_speed
 
 	handle_coyote_time(body)

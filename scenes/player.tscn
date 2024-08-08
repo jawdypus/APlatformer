@@ -143,13 +143,6 @@ shape = SubResource("RectangleShape2D_ba865")
 [node name="InputComponent" parent="." instance=ExtResource("5_lcd42")]
 
 [node name="MovementComponent" parent="." instance=ExtResource("6_8h35e")]
-speed = 100.0
-ground_accel_speed = 6.0
-ground_deccel_speed = 8.0
-air_accel_speed = 10.0
-air_deccel_speed = 3.0
-wall_slide_speed = 20.0
-wall_slide_falling_speed = 300.0
 
 [node name="AnimationComponent" parent="." node_paths=PackedStringArray("sprite", "animPlayer") instance=ExtResource("7_gpfap")]
 sprite = NodePath("../Sprite2D")

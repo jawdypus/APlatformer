@@ -5,6 +5,13 @@
 [node name="MovementComponent" type="Node" node_paths=PackedStringArray("coyote_timer")]
 script = ExtResource("1_wobnc")
 coyote_timer = NodePath("CoyoteTimer")
+speed = null
+ground_accel_speed = null
+ground_deccel_speed = null
+air_accel_speed = null
+air_deccel_speed = null
+wall_slide_speed = null
+wall_slide_falling_speed = null
 
 [node name="WallHoldTimer" type="Timer" parent="."]
 wait_time = 5.0
