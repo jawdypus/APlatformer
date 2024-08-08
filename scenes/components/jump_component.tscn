@@ -6,8 +6,6 @@
 script = ExtResource("1_u4rt2")
 jump_buffer_timer = NodePath("JumpBufferTimer")
 coyote_timer = NodePath("CoyoteTimer")
-jump_velocity = null
-wall_jump_pushback = null
 
 [node name="JumpBufferTimer" type="Timer" parent="."]
 wait_time = 0.1

@@ -6,6 +6,7 @@ extends CharacterBody2D
 @export var movement_component: MovementComponent
 @export var animation_component: AnimationComponent
 @export var jump_component: JumpComponent
+@export var dash_component: DashComponent
 
 func _physics_process(delta: float) -> void:
 	gravity_component.handle_gravity(self, delta)
@@ -13,5 +14,6 @@ func _physics_process(delta: float) -> void:
 	movement_component.handle_wall_slide(self, input_component.input_horizontal)
 	animation_component.handle_move_animation(self, input_component.input_horizontal)
 	jump_component.handle_jump(self, input_component.get_jump_input(), input_component.get_jump_input_released(), input_component.input_horizontal)
-	
+	dash_component.handle_dash(self, input_component.get_dash_input())
+
 	move_and_slide()

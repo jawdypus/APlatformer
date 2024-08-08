@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://46xejupfnsrn"]
+[gd_scene load_steps=17 format=3 uid="uid://46xejupfnsrn"]
 
 [ext_resource type="Texture2D" uid="uid://3012hkt4gcfq" path="res://assets/Nobody.png" id="1_6ud80"]
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="1_n328v"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bh1otcrighrxq" path="res://scenes/components/movement_component.tscn" id="6_8h35e"]
 [ext_resource type="PackedScene" uid="uid://b36doafepyxbn" path="res://scenes/components/animation_component.tscn" id="7_gpfap"]
 [ext_resource type="PackedScene" uid="uid://blmnsvml2uih" path="res://scenes/components/jump_component.tscn" id="7_ogrwb"]
+[ext_resource type="PackedScene" uid="uid://brwvsf7o31npu" path="res://scenes/components/dash_component.tscn" id="8_v70lh"]
 
 [sub_resource type="Animation" id="Animation_ey2a2"]
 length = 0.001
@@ -128,7 +129,7 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ba865"]
 size = Vector2(10.25, 16)
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("gravity_component", "input_component", "movement_component", "animation_component", "jump_component")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("gravity_component", "input_component", "movement_component", "animation_component", "jump_component", "dash_component")]
 texture_filter = 1
 script = ExtResource("1_n328v")
 gravity_component = NodePath("GravityComponent")
@@ -136,6 +137,7 @@ input_component = NodePath("InputComponent")
 movement_component = NodePath("MovementComponent")
 animation_component = NodePath("AnimationComponent")
 jump_component = NodePath("JumpComponent")
+dash_component = NodePath("DashComponent")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 10
@@ -165,3 +167,6 @@ sprite = NodePath("../Sprite2D")
 animPlayer = NodePath("../AnimationPlayer")
 
 [node name="JumpComponent" parent="." instance=ExtResource("7_ogrwb")]
+
+[node name="DashComponent" parent="." instance=ExtResource("8_v70lh")]
+dash_distance = null
