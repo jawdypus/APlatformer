@@ -66,17 +66,12 @@ func calculate_cell():
 func _ready() -> void:
 	calculate_cell()
 	
-	print("Player's position is " + str(player.global_position) + " Camera's positon is " + str(global_position))
-	
-	print(m_OriginOffset)
-	
 	set_position(m_OriginOffset)
 
 
 func _UpdateCameraPosition(direction: Vector2) -> void:
 	m_CurrentRoom += direction
 	set_position(m_OriginOffset + m_CurrentRoom * Vector2(m_CameraHorizontalMovement, m_CameraVerticalMovement))
-	print("Player's position is " + str(player.global_position) + " Camera's positon is " + str(global_position))
 
 
 var veloV = -50

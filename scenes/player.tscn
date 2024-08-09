@@ -132,12 +132,12 @@ size = Vector2(10.25, 16)
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("gravity_component", "input_component", "movement_component", "animation_component", "jump_component", "dash_component")]
 texture_filter = 1
 script = ExtResource("1_n328v")
-gravity_component = NodePath("GravityComponent")
-input_component = NodePath("InputComponent")
-movement_component = NodePath("MovementComponent")
-animation_component = NodePath("AnimationComponent")
-jump_component = NodePath("JumpComponent")
-dash_component = NodePath("DashComponent")
+gravity_component = NodePath("Components/GravityComponent")
+input_component = NodePath("Components/InputComponent")
+movement_component = NodePath("Components/MovementComponent")
+animation_component = NodePath("Components/AnimationComponent")
+jump_component = NodePath("Components/JumpComponent")
+dash_component = NodePath("Components/DashComponent")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 10
@@ -156,16 +156,18 @@ autoplay = "idle"
 position = Vector2(0.125, 0)
 shape = SubResource("RectangleShape2D_ba865")
 
-[node name="GravityComponent" parent="." instance=ExtResource("4_54mne")]
+[node name="Components" type="Node" parent="."]
 
-[node name="InputComponent" parent="." instance=ExtResource("5_lcd42")]
+[node name="GravityComponent" parent="Components" instance=ExtResource("4_54mne")]
 
-[node name="MovementComponent" parent="." instance=ExtResource("6_8h35e")]
+[node name="InputComponent" parent="Components" instance=ExtResource("5_lcd42")]
 
-[node name="AnimationComponent" parent="." node_paths=PackedStringArray("sprite", "animPlayer") instance=ExtResource("7_gpfap")]
-sprite = NodePath("../Sprite2D")
-animPlayer = NodePath("../AnimationPlayer")
+[node name="MovementComponent" parent="Components" instance=ExtResource("6_8h35e")]
 
-[node name="JumpComponent" parent="." instance=ExtResource("7_ogrwb")]
+[node name="AnimationComponent" parent="Components" node_paths=PackedStringArray("sprite", "animPlayer") instance=ExtResource("7_gpfap")]
+sprite = NodePath("../../Sprite2D")
+animPlayer = NodePath("../../AnimationPlayer")
 
-[node name="DashComponent" parent="." instance=ExtResource("8_v70lh")]
+[node name="JumpComponent" parent="Components" instance=ExtResource("7_ogrwb")]
+
+[node name="DashComponent" parent="Components" instance=ExtResource("8_v70lh")]
