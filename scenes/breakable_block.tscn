@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://ixyo1dmbrjta"]
+
+[ext_resource type="Texture2D" uid="uid://qd3okp3m3vjl" path="res://assets/Tilemap.png" id="1_dyfe7"]
+[ext_resource type="Script" path="res://scripts/breakable_block.gd" id="1_kn3mf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8y8vd"]
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kbsuf"]
+size = Vector2(32, 16)
+
+[node name="BreakableBlock" type="StaticBody2D"]
+script = ExtResource("1_kn3mf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_8y8vd")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_dyfe7")
+hframes = 8
+vframes = 8
+frame = 22
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-8, 0)
+shape = SubResource("RectangleShape2D_kbsuf")
+debug_color = Color(0.860099, 0.124504, 0.82265, 0.42)
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
