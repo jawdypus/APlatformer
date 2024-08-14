@@ -12,7 +12,7 @@ var can_dash: bool = true
 var is_dashing: bool = false
 
 func is_allowed_to_dash(want_to_dash: bool) -> bool:
-	return want_to_dash and can_dash
+	return want_to_dash and !is_dashing
 
 func set_dash_direction(body: CharacterBody2D) -> void:
 	dash_direction = body.velocity.normalized()

@@ -2,8 +2,12 @@
 
 [ext_resource type="Script" path="res://scripts/components/dash_component.gd" id="1_fayxt"]
 
-[node name="DashComponent" type="Node"]
+[node name="DashComponent" type="Node" node_paths=PackedStringArray("dashTimer")]
 script = ExtResource("1_fayxt")
+dashTimer = NodePath("DashTime")
 dash_distance = null
+dash_speed = null
 
 [node name="DashTime" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
