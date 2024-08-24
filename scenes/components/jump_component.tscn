@@ -1,13 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://blmnsvml2uih"]
+[gd_scene load_steps=3 format=3 uid="uid://blmnsvml2uih"]
 
 [ext_resource type="Script" path="res://scripts/components/jump_component.gd" id="1_u4rt2"]
+[ext_resource type="AudioStream" uid="uid://bp4n0ywwkcvve" path="res://assets/music/jump.wav" id="2_6ddr1"]
 
-[node name="JumpComponent" type="Node" node_paths=PackedStringArray("jump_buffer_timer", "coyote_timer")]
+[node name="JumpComponent" type="Node" node_paths=PackedStringArray("jump_buffer_timer", "coyote_timer", "sound")]
 script = ExtResource("1_u4rt2")
 jump_buffer_timer = NodePath("JumpBufferTimer")
 coyote_timer = NodePath("CoyoteTimer")
-jump_velocity = null
-wall_jump_pushback = null
+sound = NodePath("AudioStreamPlayer2D")
 
 [node name="JumpBufferTimer" type="Timer" parent="."]
 wait_time = 0.1
@@ -16,3 +16,6 @@ one_shot = true
 [node name="CoyoteTimer" type="Timer" parent="."]
 wait_time = 0.08
 one_shot = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_6ddr1")

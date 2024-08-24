@@ -4,6 +4,7 @@ extends Node
 @export_subgroup("Nodes")
 @export var jump_buffer_timer: Timer
 @export var coyote_timer: Timer
+@export var sound: AudioStreamPlayer2D
 
 @export_subgroup("Settings")
 @export var jump_velocity: float = -300.0
@@ -12,6 +13,7 @@ extends Node
 var is_going_up: bool = false
 var is_jumping: bool = false
 var last_frame_on_floor: bool = false
+var sound_has_played = false
 
 func has_just_landed(body: CharacterBody2D) -> bool:
 	return body.is_on_floor() and not last_frame_on_floor and is_jumping
@@ -34,8 +36,19 @@ func get_which_wall_collided(body: CharacterBody2D) -> float:
 func is_wall_jumping(body: CharacterBody2D, want_to_jump: bool) -> bool:
 	return want_to_jump and (body.is_on_wall())
 
+func handle_sound():
+	if is_jumping and !sound_has_played:
+		sound_has_played = true
+		sound.play()
+
+	if !is_jumping:
+		sound_has_played = false
+
 func handle_jump(body: CharacterBody2D, want_to_jump: bool, jump_released: bool, direction: float) -> void:
 	if has_just_landed(body):
+		is_jumping = false
+
+	if body.is_on_wall():
 		is_jumping = false
 
 	if is_allowed_to_jump(body, want_to_jump):
@@ -46,6 +59,7 @@ func handle_jump(body: CharacterBody2D, want_to_jump: bool, jump_released: bool,
 	handle_coyote_time(body)
 	handle_jump_buffer(body, want_to_jump)
 	handle_variable_jump_height(body, jump_released)
+	handle_sound()
 
 	is_going_up = body.velocity.y < 0 and not body.is_on_floor()
 	last_frame_on_floor = body.is_on_floor()

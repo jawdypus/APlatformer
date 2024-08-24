@@ -56,9 +56,6 @@ func calculate_cell():
 	var cameraX = cellTopLeftX + (size.x / 2) - (size.x / 2)
 	var cameraY = cellTopLeftY + (size.y / 2) - (size.y / 2)
 	
-	print(cameraX)
-	print(cameraY)
-	
 	m_OriginOffset.x = cameraX
 	m_OriginOffset.y = cameraY
 	

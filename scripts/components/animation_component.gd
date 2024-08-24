@@ -14,9 +14,9 @@ func handle_horizontal_flip(move_direction: float) -> void:
 func handle_move_animation(body: CharacterBody2D, move_direction: float) -> void:
 	handle_horizontal_flip(move_direction)
 	
-	if body.velocity.x != 0:
-		animPlayer.play("run")
 	if body.velocity.y != 0:
 		animPlayer.play("jump")
+	if body.velocity.x != 0:
+		animPlayer.play("run")
 	else:
 		animPlayer.play("idle")
